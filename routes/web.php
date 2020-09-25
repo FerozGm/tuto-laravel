@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
-Route::view('a-propos', 'a-propos');
+Route::view('a-propos', 'a-propos')->middleware('test');
 
 Route::view('la-sousoupe', 'la-sousoupe');
 
@@ -33,5 +34,11 @@ Route::delete('clients/{client}', 'ClientsController@destroy');
 Route::resource('clients', 'ClientsController');
 
 //Contacts
-Route::get('contact', 'ContactController@create');
-Route::post('contact', 'ContactController@store');
+Route::get('contactez-nous', 'ContactController@create')->name('contact.create');
+Route::post('contactez-nous', 'ContactController@store')->name('contact.store');
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
