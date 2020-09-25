@@ -34,19 +34,22 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="/">Accueil</a>
+                            <a class="nav-link active" href="/">Accueil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/contact">Contactez-nous</a>
+                            <a class="nav-link active" href="{{ action('HomeController@index') }}">Panel</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/a-propos">A propos</a>
+                            <a class="nav-link active" href="/contactez-nous">Contactez-nous</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('clients.index') }}">Clients</a>
+                            <a class="nav-link active" href="/a-propos">A propos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/la-sousoupe">A la soupe</a>
+                            <a class="nav-link active" href="{{ route('clients.index') }}">Clients</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/la-sousoupe">A la soupe</a>
                         </li>
                     </ul>
 

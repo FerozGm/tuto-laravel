@@ -25,14 +25,9 @@ class ClientsController extends Controller
     }
 
     public function store() {
-        $data = request()->validate([
-            'name' => 'required|min:3',
-            'email' => 'required|email',
-            'status' => 'required|integer',
-            'entreprise_id' => 'required|integer'
-        ]);
+        $client = Client::create($this->validator());
 
-        Client::create($data);
+        $this->storeImage($client);
 
         return back();
     }
@@ -47,14 +42,9 @@ class ClientsController extends Controller
     }
 
     public function update(Client $client) {
-        $data = request()->validate([
-            'name' => 'required|min:3',
-            'email' => 'required|email',
-            'status' => 'required|integer',
-            'entreprise_id' => 'required|integer'
-        ]);
+        $client->update($this->validator());
 
-        $client->update($data);
+        $this->storeImage($client);
 
         return redirect('clients/' . $client->id);
     }
@@ -63,5 +53,23 @@ class ClientsController extends Controller
         $client->delete();
 
         return redirect('clients');
+    }
+
+    private function validator() {
+       return request()->validate([
+            'name' => 'required|min:3',
+            'email' => 'required|email',
+            'status' => 'required|integer',
+            'entreprise_id' => 'required|integer',
+            'image' => 'sometimes|image|max:5000',
+        ]);
+    }
+
+    private function storeImage(Client $client) {
+        if(request('image')) {
+            $client->update([
+                'image' => request('image')->store('avatars', 'public')
+            ]);
+        }
     }
 }

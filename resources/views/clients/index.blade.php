@@ -5,9 +5,9 @@
 <h1>clients</h1>
 <a href="{{ route('clients.create') }}" class="btn btn-primary my-3">Nouveau client</a>
 <ul>
-    @foreach($clients as $client)
+    <!--@foreach($clients as $client)
     <li>{{ $client->name }} <em class="muted"> ({{ $client->email }}</em> <em class="muted"> - {{ $client->entreprise->name }}) </em></li>
-    @endforeach
+    @endforeach-->
 
     <table class="table">
         <thead>
