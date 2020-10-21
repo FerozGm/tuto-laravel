@@ -13,12 +13,14 @@ class ClientsController extends Controller
     }
 
     public function index() {
-        $clients = Client::all();
+        $clients = Client::with('entreprise')->paginate(15);
 
         return view('clients.index', compact('clients'));
     }
 
     public function create() {
+        $this->authorize('create', Client::class);
+
         $entreprises = Entreprise::all();
         $client = new Client();
         return view('clients.create', compact('entreprises', 'client'));
@@ -42,6 +44,8 @@ class ClientsController extends Controller
     }
 
     public function update(Client $client) {
+        $this->authorize('update', $client);
+
         $client->update($this->validator());
 
         $this->storeImage($client);
@@ -50,6 +54,8 @@ class ClientsController extends Controller
     }
 
     public function destroy(Client $client) {
+        $this->authorize('delete', $client);
+
         $client->delete();
 
         return redirect('clients');
